@@ -5,10 +5,10 @@ const baseURL = "https://demo.magic-portfolio.com";
 
 const routes = {
   "/": true,
-  "/about": false,
-  "/work": false,
-  "/blog": false,
-  "/gallery": false,
+  "/about": true,
+  "/work": true,
+  "/blog": true,
+  "/gallery": true,
 };
 
 const display = {
@@ -82,19 +82,19 @@ const dataStyle = {
   tick: {
     fill: "var(--neutral-on-background-weak)",
     fontSize: 11,
-    line: false
+    line: true
   },
 };
 
 const effects = {
   mask: {
-    cursor: false,
+    cursor: true,
     x: 50,
     y: 0,
     radius: 100,
   },
   gradient: {
-    display: false,
+    display: true,
     opacity: 100,
     x: 50,
     y: 60,
@@ -111,14 +111,14 @@ const effects = {
     color: "brand-background-strong",
   },
   grid: {
-    display: false,
+    display: true,
     opacity: 100,
     color: "neutral-alpha-medium",
     width: "0.25rem",
     height: "0.25rem",
   },
   lines: {
-    display: false,
+    display: true,
     opacity: 100,
     color: "neutral-alpha-weak",
     size: "16",
@@ -154,14 +154,14 @@ const mailchimp = {
       color: "brand-on-background-weak",
     },
     grid: {
-      display: false,
+      display: true,
       opacity: 100,
       color: "neutral-alpha-medium",
       width: "0.25rem",
       height: "0.25rem",
     },
     lines: {
-      display: false,
+      display: true,
       opacity: 100,
       color: "neutral-alpha-medium",
       size: "16",
