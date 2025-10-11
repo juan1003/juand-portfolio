@@ -25,7 +25,7 @@ export async function POST(request: Request) {
   const mailOptions = {
     from: email,
     to: 'jdejesus93@gmail.com', // Your email address where you want to receive messages
-    subject: `New message from ${name}`,
+    subject: `${name} wants to work with you!`,
     text: message,
     replyTo: email,
   };

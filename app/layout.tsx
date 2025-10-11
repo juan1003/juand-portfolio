@@ -8,8 +8,8 @@ const orbitron = Orbitron({
 });
 
 export const metadata: Metadata = {
-  title: "Cyberpunk Dashboard",
-  description: "A cyberpunk-themed dashboard",
+  title: "J.D. | Web",
+  description: "Juan De Jesus portfolio site",
 };
 
 export default function RootLayout({
