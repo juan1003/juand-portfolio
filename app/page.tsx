@@ -4,7 +4,7 @@ import React from "react"
 
 interface Props {
     href: string,
-    children: React.ReactElement<string> | React.ReactElement<string>[]
+    children: string
 }
 
 const NavLink = ({ href, children }: Props) => (
