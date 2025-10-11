@@ -1,14 +1,19 @@
 'use client';
 
-import Image from 'next/image';
+import React from "react"
 
-const NavLink = ({ href, children }) => (
+interface Props {
+    href: string,
+    children: React.ReactElement | React.ReactElement[]
+}
+
+const NavLink = ({ href, children }: Props) => (
   <a href={href} className="text-secondary hover:text-primary transition-colors duration-300">
     {children}
   </a>
 );
 
-const ProjectCard = ({ title, description, tech }) => (
+const ProjectCard = ({ title, description, tech }: { title: string, description: string, tech: string[] }) => (
   <div className="cyber-border p-6 rounded-lg">
     <h3 className="text-2xl font-bold text-primary mb-2">{title}</h3>
     <p className="text-secondary mb-4">{description}</p>
