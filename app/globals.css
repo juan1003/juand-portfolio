@@ -1,26 +1,36 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #101010;
+  --foreground: #ededed;
+  --primary: #ff007f;
+  --secondary: #00ffff;
+  --glow: 0 0 5px var(--primary), 0 0 10px var(--primary), 0 0 20px var(--primary);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+.cyber-glow {
+  text-shadow: var(--glow);
+  animation: flicker 1.5s infinite alternate;
+}
+
+.cyber-border {
+  border: 1px solid var(--primary);
+  box-shadow: var(--glow);
+}
+
+@keyframes flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 0.99;
+    text-shadow: var(--glow);
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.7;
+    text-shadow: none;
+  }
 }

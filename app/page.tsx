@@ -1,102 +1,118 @@
-import Image from "next/image";
+'use client';
+
+import Image from 'next/image';
+
+const NavLink = ({ href, children }) => (
+  <a href={href} className="text-secondary hover:text-primary transition-colors duration-300">
+    {children}
+  </a>
+);
+
+const ProjectCard = ({ title, description, tech }) => (
+  <div className="cyber-border p-6 rounded-lg">
+    <h3 className="text-2xl font-bold text-primary mb-2">{title}</h3>
+    <p className="text-secondary mb-4">{description}</p>
+    <div className="flex flex-wrap gap-2">
+      {tech.map((t) => (
+        <span key={t} className="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">
+          {t}
+        </span>
+      ))}
+    </div>
+  </div>
+);
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="font-sans min-h-screen p-8 pb-20 text-white">
+      <nav className="flex justify-between items-center mb-24">
+        <h1 className="text-3xl font-bold cyber-glow">J.D.</h1>
+        <div className="flex gap-8 items-center">
+          <NavLink href="#about">About</NavLink>
+          <NavLink href="#projects">Projects</NavLink>
+          <NavLink href="#contact">Contact</NavLink>
         </div>
+      </nav>
+
+      <main>
+        <section id="hero" className="text-center mb-24">
+          <h2 className="text-6xl font-bold mb-4">
+            <span className="cyber-glow">J.D.</span>
+          </h2>
+          <p className="text-xl text-secondary max-w-3xl mx-auto mb-8">
+            A software engineer with 9 years of experience, specializing in web technologies and exploring the world of AI.
+          </p>
+          <a href="#projects" className="cyber-border inline-block bg-primary/20 text-primary font-bold px-8 py-3 rounded-lg hover:bg-primary/40 transition-colors duration-300">
+            View My Work
+          </a>
+        </section>
+
+        <section id="about" className="mb-24">
+          <h2 className="text-4xl font-bold text-center mb-12 cyber-glow">About Me</h2>
+          <div className="max-w-4xl mx-auto text-lg text-secondary text-center">
+            <p className="mb-4">
+              With 9 years in the field, I specialize in web technologies, creating elegant and efficient solutions. I am passionate about learning and applying my knowledge to new challenges.
+            </p>
+            <p>
+              Currently, I am diving deep into AI technologies and their applications, constantly expanding my skill set.
+            </p>
+          </div>
+        </section>
+
+        <section id="projects" className="text-center mb-24">
+          <h2 className="text-4xl font-bold text-center mb-8 cyber-glow">Projects</h2>
+          <p className="text-xl text-secondary max-w-3xl mx-auto mb-8">
+            You can find my work on my GitHub profile.
+          </p>
+          <a href="https://github.com/juan1003" target="_blank" rel="noopener noreferrer" className="cyber-border inline-block bg-primary/20 text-primary font-bold px-8 py-3 rounded-lg hover:bg-primary/40 transition-colors duration-300">
+            Visit my GitHub
+          </a>
+        </section>
+
+        <section id="contact" className="text-center">
+          <h2 className="text-4xl font-bold mb-8 cyber-glow">Get In Touch</h2>
+          <form 
+            onSubmit={async (e) => {
+              e.preventDefault();
+              const formData = new FormData(e.currentTarget);
+              const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                message: formData.get('message'),
+              };
+              const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+              });
+              if (response.ok) {
+                alert('Message sent successfully!');
+              } else {
+                alert('Failed to send message.');
+              }
+            }}
+            className="max-w-xl mx-auto"
+          >
+            <div className="mb-4">
+              <input type="text" name="name" placeholder="Your Name" required className="w-full p-3 bg-black/20 cyber-border rounded-lg" />
+            </div>
+            <div className="mb-4">
+              <input type="email" name="email" placeholder="Your Email" required className="w-full p-3 bg-black/20 cyber-border rounded-lg" />
+            </div>
+            <div className="mb-4">
+              <textarea name="message" placeholder="Your Message" required rows={5} className="w-full p-3 bg-black/20 cyber-border rounded-lg"></textarea>
+            </div>
+            <button type="submit" className="cyber-border inline-block bg-primary/20 text-primary font-bold px-8 py-3 rounded-lg hover:bg-primary/40 transition-colors duration-300">
+              Send Message
+            </button>
+          </form>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      <footer className="text-center mt-24 text-secondary">
+        <p>&copy; {new Date().getFullYear()} J.D. All rights reserved.</p>
       </footer>
     </div>
   );
