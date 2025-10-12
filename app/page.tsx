@@ -13,8 +13,8 @@ const NavLink = ({ href, children }: Props) => (
   </a>
 );
 
-const ProjectCard = ({ title, description, tech }: { title: string, description: string, tech: string[] }) => (
-  <div className="cyber-border p-6 rounded-lg">
+const ProjectCard = ({ title, description, tech, href }: { title: string, description: string, tech: string[], href: string }) => (
+  <a href={href} target="_blank" rel="noopener noreferrer" className="cyber-border p-6 rounded-lg block hover:bg-primary/10 transition-colors duration-300">
     <h3 className="text-2xl font-bold text-primary mb-2">{title}</h3>
     <p className="text-secondary mb-4">{description}</p>
     <div className="flex flex-wrap gap-2">
@@ -24,7 +24,7 @@ const ProjectCard = ({ title, description, tech }: { title: string, description:
         </span>
       ))}
     </div>
-  </div>
+  </a>
 );
 
 export default function Home() {
@@ -72,6 +72,15 @@ export default function Home() {
           <a href="https://github.com/juan1003" target="_blank" rel="noopener noreferrer" className="cyber-border inline-block bg-primary/20 text-primary font-bold px-8 py-3 rounded-lg hover:bg-primary/40 transition-colors duration-300">
             Visit my GitHub
           </a>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+            <ProjectCard
+              title="Medic Notes"
+              description="A medical notes application for efficient patient record management."
+              tech={["Next.js", "TypeScript", "Tailwind CSS", "MongoDB"]}
+              href="https://medic-notes-inky.vercel.app/login"
+            />
+          </div>
         </section>
 
         <section id="contact" className="text-center">
