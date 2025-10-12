@@ -73,7 +73,7 @@ export default function Home() {
             Visit my GitHub
           </a>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+          <div className="flex justify-center gap-8 mt-8">
             <ProjectCard
               title="Medic Notes"
               description="A medical notes application for efficient patient record management."
