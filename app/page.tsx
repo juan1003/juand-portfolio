@@ -27,7 +27,40 @@ const ProjectCard = ({ title, description, tech, href }: { title: string, descri
   </a>
 );
 
-export default function Home() {
+  export default function Home() {
+  const [formStatus, setFormStatus] = React.useState('');
+
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus('Sending...');
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      message: formData.get('message'),
+    };
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setFormStatus('Message sent successfully!');
+        (e.target as HTMLFormElement).reset();
+      } else {
+        const errorData = await response.json();
+        setFormStatus(`Failed to send message: ${errorData.message || 'Unknown error'}`);
+      }
+    } catch {
+      setFormStatus('Failed to send message. Please try again later.');
+    }
+  };
+
   return (
     <div className="font-sans min-h-screen p-8 pb-20 text-white">
       <nav className="flex justify-between items-center mb-24">
@@ -73,42 +106,25 @@ export default function Home() {
             Visit my GitHub
           </a>
 
-          <div className="flex justify-center gap-8 mt-8">
+          <div className="grid md:grid-cols-2 gap-8 mt-8">
             <ProjectCard
               title="Medic Notes"
               description="A medical notes application for efficient patient record management."
               tech={["Next.js", "TypeScript", "Tailwind CSS", "MongoDB"]}
               href="https://medic-notes-inky.vercel.app/login"
             />
+            <ProjectCard
+              title="Another Project"
+              description="This is another project that I have worked on."
+              tech={["React", "Node.js", "Express", "PostgreSQL"]}
+              href="#"
+            />
           </div>
         </section>
 
         <section id="contact" className="text-center">
           <h2 className="text-4xl font-bold mb-8 cyber-glow">Get In Touch</h2>
-          <form 
-            onSubmit={async (e) => {
-              e.preventDefault();
-              const formData = new FormData(e.currentTarget);
-              const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                message: formData.get('message'),
-              };
-              const response = await fetch('/api/contact', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-              });
-              if (response.ok) {
-                alert('Message sent successfully!');
-              } else {
-                alert('Failed to send message.');
-              }
-            }}
-            className="max-w-xl mx-auto"
-          >
+          <form onSubmit={handleContactSubmit} className="max-w-xl mx-auto">
             <div className="mb-4">
               <input type="text" name="name" placeholder="Your Name" required className="w-full p-3 bg-black/20 cyber-border rounded-lg" />
             </div>
@@ -121,6 +137,7 @@ export default function Home() {
             <button type="submit" className="cyber-border inline-block bg-primary/20 text-primary font-bold px-8 py-3 rounded-lg hover:bg-primary/40 transition-colors duration-300">
               Send Message
             </button>
+            {formStatus && <p className="mt-4">{formStatus}</p>}
           </form>
         </section>
       </main>
